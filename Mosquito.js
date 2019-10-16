@@ -144,7 +144,7 @@ room2.computer.setWidth(100)
 room2.locateObject(room2.computer, 900, 335)
 
 room2.computer.onClick = function() {
-    playYoutube("https://www.youtube.com/watch?v=d5cV86Sa6k0")
+    playYoutube("www.youtube.com/watch?v=d5cV86Sa6k0")
 }
 
 room2.sofa = room2.createObject("sofa", "소파-좌.png")
