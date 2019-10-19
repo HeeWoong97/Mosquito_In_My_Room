@@ -96,7 +96,12 @@ room1.radio.setWidth(90)
 room1.locateObject(room1.radio, 900, 600)
 room1.radio.onClick = function() {
     showAudioPlayer("mosquitotencm.wav")
+    printMessage("방에 모기가 있어~")
 }
+
+room1.clock = room1.createObject("clock", "clock.png")
+room1.clock.setWidth(80)
+room1.locateObject(room1.clock, 160, 170)
 
 ////////////////////**room2**////////////////////
 
@@ -120,8 +125,11 @@ room2.door2.onClick = function() {
     } else if(room2.door2.isOpened()) {
         game.move(room3)
     } else if (room2.door2.isLocked()) {
-        printMessage("철커덕")
-        room2.door2.unlock()
+        printMessage("잠겨있어...")
+        if(game.getHandItem() == room2.key){
+            printMessage("철커덕")
+            room2.door2.unlock()
+        }
     }
 }
 
@@ -143,9 +151,24 @@ room2.locateObject(room2.desk, 920, 455)
 room2.computer = room2.createObject("computer", "맥-우.png")
 room2.computer.setWidth(100)
 room2.locateObject(room2.computer, 900, 335)
+room2.computer.lock()
 
 room2.computer.onClick = function() {
-    playYoutube("https://www.youtube.com/watch?v=huAbotE10a0")
+    if(room2.computer.isClosed()){ // 
+		room2.computer.open() // 열린 박스로 변경
+	} else if (room2.computer.isOpened()){ 
+        showVideoPlayer("mosquito.mp4")
+	} else if (room2.computer.isLocked()) {
+		printMessage("부팅을 위해 현재 시각을 입력하세요") // 클릭했을 때 출력
+	    showKeypad("number", "2216" , function(){
+		room2.computer.unlock() //
+		printMessage("새로운시작") // 비밀번호를 풀었을 때 출력
+	 })
+	}
+}
+
+room2.computer.onOpen = function() {
+    showVideoPlayer("mosquito.mp4")
 }
 
 room2.sofa = room2.createObject("sofa", "소파-좌.png")
@@ -235,14 +258,6 @@ room2.postit.onClick = function() {
     showImageViewer("포스트잍.png", "포스트잍.txt")
 }
 
-room2.note = room2.createObject("note", "노트.png")
-room2.note.setWidth(100)
-room2.locateObject(room2.note, 400, 600)
-
-room2.note.onClick = function() {
-    showImageViewer("펼친책.png", "펼친책.txt")
-}
-
 password = false
 remotcontrolClick = false
 
@@ -260,6 +275,50 @@ room2.leakagebreaker.onClick = function() {
             printMessage("두꺼비집을 올렸다!")
         })
     }
+}
+
+room2.box = room2.createObject("box", "상자2-2-닫힘.png")
+room2.box.setWidth(200)
+room2.locateObject(room2.box, 800, 600)
+room2.box.lock()
+
+room2.note = room2.createObject("note", "노트.png")
+room2.note.setWidth(100)
+room2.locateObject(room2.note, 760, 550)
+room2.note.hide()
+
+room2.note.onClick = function() {
+    showImageViewer("펼친책.png", "펼친책.txt")
+}
+
+room2.key = room2.createObject("key", "열쇠.png")
+room2.key.setWidth(60)
+room2.locateObject(room2.key, 840, 550)
+room2.key.hide()
+
+room2.box.onClick = function() {
+    if(room2.box.isClosed()){ // 박스가 닫혀있다면
+		room2.box.open() // 열린 박스로 변경
+	} else if (room2.box.isOpened()){ // 박스가 열려있다면
+        //
+	} else if (room2.box.isLocked()) {
+		printMessage("카세트 노래를 부른 그룹 이름이..?") // 클릭했을 때 출력
+	    showKeypad("number", "0010" , function(){
+		room2.box.unlock() // door의 잠금을 연다
+		printMessage("박스가 열렸다") // 비밀번호를 풀었을 때 출력
+	 })
+	}
+}
+
+room2.box.onOpen = function() {
+    room2.box.setSprite("상자2-2-열림.png")
+    room2.note.show()
+    room2.key.show()
+}
+
+room2.key.onClick = function() {
+    printMessage("열쇠를 주웠다!!")
+    room2.key.pick()
 }
 
 ////////////////////***room3***////////////////////
