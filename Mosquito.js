@@ -2,6 +2,8 @@ room1 = game.createRoom("room1", "bedRoom.png")
 room2 = game.createRoom("room2", "livingRoom.png")
 room3 = game.createRoom("room3", "bathroom.png")
 
+game.setClearMessage("모기 잡았으니 객지프 만점이다! Special Thanks to Song")
+
 ////////////////////***room1***////////////////////
 
 room1.door = room1.createObject("door", "문-오른쪽-닫힘.png")
@@ -86,7 +88,6 @@ room1.drawers.onClose = function() {
 }
 
 room1.mosquito.onClick = function() {
-    printMessage("축하합니다. 드디어 모기를 잡으셨습니다.")
     game.clear()
 }
 
@@ -144,7 +145,7 @@ room2.computer.setWidth(100)
 room2.locateObject(room2.computer, 900, 335)
 
 room2.computer.onClick = function() {
-    playYoutube("www.youtube.com/watch?v=d5cV86Sa6k0")
+    playYoutube("https://www.youtube.com/watch?v=huAbotE10a0")
 }
 
 room2.sofa = room2.createObject("sofa", "소파-좌.png")
@@ -210,13 +211,12 @@ room2.mosquito.onClick = function() {
         clickCnt += 1
     } else if(clickCnt == 3) {
         room2.mosquito.move = true
-        room2.mosquito.moveY(150)
-        room2.mosquito.moveX(150) //940, 400
+        room2.mosquito.moveX(150) //940, 250
         room2.mosquito.move = false
         clickCnt += 1
     } else if(clickCnt == 4) {
         room2.mosquito.move = true
-        room2.mosquito.moveY(-35)
+        room2.mosquito.moveY(115)
         room2.mosquito.moveX(160) //1100, 365
         room2.mosquito.move = false
         clickCnt += 1
@@ -343,7 +343,7 @@ room3.washstand.onClick = function() {
 
 room3.tissuehanger = room3.createObject("tissuehanger", "tissuehanger.png")
 room3.tissuehanger.setWidth(50)
-room3.locateObject(room3.tissuehanger, 800, 400)
+room3.locateObject(room3.tissuehanger, 600, 350)
 
 room3.tissuehanger.onClick = function() {
     if(!bathLight) {
@@ -392,12 +392,11 @@ room3.picture.onClick = function() {
 game.start(room1)
 
 room1.button = room1.createObject("button", "next.png")
-room1.button.setWidth(100)
-room1.locateObject(room1.button, 1049, 580)
-
-printMessage("내일은 객지프 시험날... 일찍 자야겠다...(다음 버튼 클릭)")
+room1.button.setWidth(300)
+room1.locateObject(room1.button, 800, 450)
 
 var buttonClick = 0
+printMessage("내일은 객지프 시험날... 일찍 자야겠다...(다음 버튼 클릭)")
 room1.button.onClick = function() {
     if(buttonClick == 0){
         printMessage("애애애애ㅐㅐ애앵 (다음 버튼 클릭)")
